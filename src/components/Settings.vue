@@ -1,6 +1,5 @@
 <template>
-    <div>
-        settings
+    <div class="outbounding">
     </div>
 </template>
 
@@ -11,4 +10,6 @@ export default {
 </script>
 
 <style scoped>
+.outbounding {
+}
 </style>

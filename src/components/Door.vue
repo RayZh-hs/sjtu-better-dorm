@@ -1,9 +1,13 @@
 <template>
     <div class="multi-btn-area" @click="openDoor">
         <div class="loading center">
-            <div class="content-wrapper">
+            <div class="content-wrapper" :class="{'move-up': open}">
                 <v-icon icon="mdi-lock-open-outline" class="mid-icon center"></v-icon>
                 <v-icon icon="mdi-lock-open-outline" class="mid-icon-inner"></v-icon>
+            </div>
+            <div class="content-wrapper" :class="{'move-down': !open}">
+                <v-icon icon="mdi-arrow-up-thick" class="mid-icon center"></v-icon>
+                <v-icon icon="mdi-arrow-up-thick" class="mid-icon-inner"></v-icon>
             </div>
         </div>
     </div>
@@ -13,9 +17,20 @@
 <script>
 export default {
     name: 'Door',
+    data() {
+        return {
+            open: false
+        }
+    },
     methods: {
         openDoor() {
-            location.assign("https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829")
+            // location.assign("https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829")
+            window.open("https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829")
+
+            this.open = true
+            setTimeout(() => {
+                this.open = false
+            }, 5000);
         }
     }
 }
@@ -34,6 +49,23 @@ export default {
     background: #dbdbdb;
     box-shadow: 20px 20px 60px #bababa,
         -20px -20px 60px #fcfcfc;
+    
+    transition: all 0.3s ease;
+}
+
+.content-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    transition: all 0.3s ease;
+}
+
+.move-up {
+    translate: 0px -150px;
+}
+.move-down {
+    transform: translateY(150px);
 }
 
 .loading {
@@ -42,6 +74,8 @@ export default {
     border-radius: 50%;
     box-shadow: 5px 5px 10px #b5b5b5b9,
         -5px -5px 10px #f0f0f08f;
+    
+    overflow: hidden;
 }
 
 .loading::after {
@@ -109,5 +143,17 @@ export default {
     background: linear-gradient(145deg, #eaeaea, #c5c5c5);
     box-shadow: 9px 9px 18px #afafaf,
         -9px -9px 18px #ffffff;
+    
+    animation: slide-up 1s ease-out;
 }
+
+@keyframes slide-up {
+    from {
+        translate: 0px 50px;
+    }
+    to {
+        translate: 0px 0px;
+    }
+}
+
 </style>
