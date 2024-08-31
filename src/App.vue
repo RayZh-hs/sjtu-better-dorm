@@ -16,11 +16,11 @@ export default {
 <template>
     <v-app class="rel app">
         <v-tabs v-model="tab" color="primary" grow>
-            <v-tab value="door" :class="{ 'sel-elevate': tab == 'door' }">
+            <v-tab value="door" :class="{ 'sel-sink': tab != 'door', 'sel-select': tab == 'door' }">
                 <v-icon icon="mdi-door"></v-icon>
                 <p class="icon-tip" v-if="tab=='door'">door</p>
             </v-tab>
-            <v-tab value="settings" :class="{ 'sel-elevate': tab == 'settings' }">
+            <v-tab value="settings" :class="{ 'sel-sink': tab != 'settings', 'sel-select': tab == 'settings'}">
                 <v-icon icon="mdi-cog"></v-icon>
                 <p class="icon-tip" v-if="tab=='settings'">settings</p>
             </v-tab>
@@ -60,12 +60,24 @@ export default {
     font-weight: bold;
 }
 
-.sel-elevate {
+.sel-sink {
     border-radius: 0px;
     background: #dbdbdb;
     box-shadow: inset 5px 5px 10px #bababa,
         inset -5px -5px 10px #fcfcfc;
 
     color: rgb(64, 64, 64) !important;
+}
+.sel-select {
+    color: rgb(64, 64, 64) !important;
+}
+</style>
+
+<style>
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 </style>

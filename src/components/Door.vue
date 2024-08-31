@@ -1,12 +1,13 @@
 <template>
-    <div class="center multi-btn-area">
+    <div class="multi-btn-area">
         <div class="loading center">
             <div class="content-wrapper">
                 <v-icon icon="mdi-lock-open-outline" class="mid-icon center"></v-icon>
-                <!-- <p class="pending-txt">Click to open</p> -->
+                <v-icon icon="mdi-lock-open-outline" class="mid-icon-inner"></v-icon>
             </div>
         </div>
     </div>
+    <p class="pending-txt">Click to open</p>
 </template>
 
 <script>
@@ -17,8 +18,12 @@ export default {
 
 <style scoped>
 .multi-btn-area {
-    width: 220px;
-    height: 220px;
+    width: 82vw;
+    height: 82vw;
+    position: relative;
+    left: 9vw;
+    top: 15vh;
+
     border-radius: 50%;
     background: #dbdbdb;
     box-shadow: 20px 20px 60px #bababa,
@@ -29,40 +34,56 @@ export default {
     width: 80%;
     height: 80%;
     border-radius: 50%;
-    outline: 2px solid #696969;
-    box-shadow: 20px 20px 60px #bcbcbc87;
+    box-shadow: 5px 5px 10px #b5b5b5b9,
+        -5px -5px 10px #f0f0f08f;
 }
 
-.content-wrapper {
-    position: relative;
+.loading::after {
+    content: '';
+    position: absolute;
     width: 100%;
     height: 100%;
-    transform: transform(50%, 50%);
+    border-radius: 50%;
+
+    outline: 3.6vw solid rgb(196, 184, 184);
+    outline-offset: 3vw;
+    /* opacity: 0.3; */
+    opacity: 0;
 }
 
 .mid-icon {
+    position: absolute;
     font-size: 80px;
-    color: #353535;
+    color: #5e5e5e;
+    z-index: 10;
+}
+
+.mid-icon-inner {
+    position: absolute;
+    font-size: 80px;
+    color: #e8e8e8;
+    left: 50%;
+    top: 50%;
+    transform: translate(-49%, -46%);
+    filter: blur(3px);
+    z-index: 12;
+    opacity: 1;
 }
 
 .pending-txt {
     font-size: 15px;
     letter-spacing: 1px;
     font-weight: bold;
-    color: #616161;
+    color: #555555;
 
-    position: absolute;
-    width: 100%;
-    bottom: 25px;
-    left: 85px;
+    position: relative;
+    width: 100vw;
+    bottom: -22vh;
+    left: 50vw;
     text-align: center;
     transform: translateX(-50%);
-}
 
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    filter: drop-shadow(2px 2px 1px rgba(144, 144, 144, 0.667))
+            drop-shadow(-1px -1px 1px rgba(247, 247, 247, 0.315));
 }
 </style>
