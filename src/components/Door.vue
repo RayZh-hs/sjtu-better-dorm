@@ -1,5 +1,5 @@
 <template>
-    <div class="multi-btn-area">
+    <div class="multi-btn-area" @click="openDoor">
         <div class="loading center">
             <div class="content-wrapper">
                 <v-icon icon="mdi-lock-open-outline" class="mid-icon center"></v-icon>
@@ -7,12 +7,17 @@
             </div>
         </div>
     </div>
-    <p class="pending-txt">Click to open</p>
+    <v-card id="bottom-card" color="#dbdbdb">click to open</v-card>
 </template>
 
 <script>
 export default {
     name: 'Door',
+    methods: {
+        openDoor() {
+            location.assign("https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829")
+        }
+    }
 }
 </script>
 
@@ -21,6 +26,7 @@ export default {
     width: 82vw;
     height: 82vw;
     position: relative;
+    display: block;
     left: 9vw;
     top: 15vh;
 
@@ -71,9 +77,6 @@ export default {
 }
 
 .pending-txt {
-    font-size: 15px;
-    letter-spacing: 1px;
-    font-weight: bold;
     color: #555555;
 
     position: relative;
@@ -83,7 +86,28 @@ export default {
     text-align: center;
     transform: translateX(-50%);
 
-    filter: drop-shadow(2px 2px 1px rgba(144, 144, 144, 0.667))
-            drop-shadow(-1px -1px 1px rgba(247, 247, 247, 0.315));
+    filter: drop-shadow(2px 2px 1px rgba(144, 144, 144, 0.667)) drop-shadow(-1px -1px 1px rgba(247, 247, 247, 0.315));
+}
+
+#bottom-card {
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    color:rgb(53, 53, 53) !important;
+
+    position: relative;
+    bottom: -25vh;
+    width: 82vw;
+    height: 30vh;
+    padding-top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-radius: 24px;
+    background: linear-gradient(145deg, #eaeaea, #c5c5c5);
+    box-shadow: 9px 9px 18px #afafaf,
+        -9px -9px 18px #ffffff;
 }
 </style>
