@@ -1,5 +1,6 @@
 <script setup>
 import Door from './components/Door.vue';
+import Light from './components/Light.vue';
 import Settings from './components/Settings.vue';
 </script>
 
@@ -18,16 +19,23 @@ export default {
         <v-tabs v-model="tab" color="primary" grow>
             <v-tab value="door" :class="{ 'sel-sink': tab != 'door', 'sel-select': tab == 'door' }">
                 <v-icon icon="mdi-door"></v-icon>
-                <p class="icon-tip" v-if="tab=='door'">door</p>
+                <p class="icon-tip" v-if="tab == 'door'">door</p>
             </v-tab>
-            <v-tab value="settings" :class="{ 'sel-sink': tab != 'settings', 'sel-select': tab == 'settings'}">
+            <v-tab value="light" :class="{ 'sel-sink': tab != 'light', 'sel-select': tab == 'light' }">
+                <v-icon icon="mdi-ceiling-light"></v-icon>
+                <p class="icon-tip" v-if="tab == 'light'">light</p>
+            </v-tab>
+            <v-tab value="settings" :class="{ 'sel-sink': tab != 'settings', 'sel-select': tab == 'settings' }">
                 <v-icon icon="mdi-cog"></v-icon>
-                <p class="icon-tip" v-if="tab=='settings'">settings</p>
+                <p class="icon-tip" v-if="tab == 'settings'">settings</p>
             </v-tab>
         </v-tabs>
         <v-tabs-window v-model="tab" class="tabs-win">
             <v-tabs-window-item key="door" value="door">
                 <door />
+            </v-tabs-window-item>
+            <v-tabs-window-item key="light" value="light">
+                <light />
             </v-tabs-window-item>
             <v-tabs-window-item key="settings" value="settings">
                 <settings />
@@ -53,6 +61,10 @@ export default {
     height: calc(100% - 48px);
 }
 
+.v-tab {
+    min-width: 60px !important;
+}
+
 .icon-tip {
     margin-left: 10px;
     font-size: small;
@@ -67,6 +79,7 @@ export default {
 
     color: rgb(64, 64, 64) !important;
 }
+
 .sel-select {
     color: rgb(64, 64, 64) !important;
 }
