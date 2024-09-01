@@ -1,11 +1,11 @@
 <template>
-    <div class="multi-btn-area" @click="openDoor">
+    <div class="multi-btn-area" @click="openDoor" id="multi-btn-area">
         <div class="loading center">
-            <div class="content-wrapper" :class="{'move-up': open}">
+            <div class="content-wrapper" :class="{ 'move-up': open }">
                 <v-icon icon="mdi-lock-open-outline" class="mid-icon center"></v-icon>
                 <v-icon icon="mdi-lock-open-outline" class="mid-icon-inner"></v-icon>
             </div>
-            <div class="content-wrapper" :class="{'move-down': !open}">
+            <div class="content-wrapper" :class="{ 'move-down': !open }">
                 <v-icon icon="mdi-arrow-up-thick" class="mid-icon center"></v-icon>
                 <v-icon icon="mdi-arrow-up-thick" class="mid-icon-inner"></v-icon>
             </div>
@@ -27,12 +27,46 @@ export default {
             // location.assign("https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829")
             window.open("https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829")
 
+            // const Http = new XMLHttpRequest();
+            // Http.open("GET", "https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829");
+            // Http.send();
+            // Http.onreadystatechange = (e) => {
+                // console.log(Http.responseText)
+            // }
+
             this.open = true
             setTimeout(() => {
                 this.open = false
             }, 5000);
         }
-    }
+    },
+    // beforeMount() {
+    //     // Override the 'click' event
+    //     setTimeout(() => {
+    //         let element = document.getElementById('multi-btn-area');
+    //         if (element) {
+    //             let event = new MouseEvent("click", {
+    //                 bubbles: true,
+    //                 cancelable: true,
+    //                 view: window,
+    //                 detail: 0,
+    //                 screenX: 0,
+    //                 screenY: 0,
+    //                 clientX: 0,
+    //                 clientY: 0,
+    //                 ctrlKey: true,
+    //                 altKey: false,
+    //                 shiftKey: false,
+    //                 metaKey: false,
+    //                 button: 0,
+    //                 relatedTarget: null
+    //             });
+    //             element.dispatchEvent(event);
+    //         } else {
+    //             console.error("Element with ID 'multi-btn-area' not found.");
+    //         }
+    //     }, 500);
+    // }
 }
 </script>
 
@@ -49,7 +83,7 @@ export default {
     background: #dbdbdb;
     box-shadow: 20px 20px 60px #bababa,
         -20px -20px 60px #fcfcfc;
-    
+
     transition: all 0.3s ease;
 }
 
@@ -62,10 +96,11 @@ export default {
 }
 
 .move-up {
-    translate: 0px -150px;
+    translate: 0px -40vh;
 }
+
 .move-down {
-    transform: translateY(150px);
+    transform: translateY(40vh);
 }
 
 .loading {
@@ -74,7 +109,7 @@ export default {
     border-radius: 50%;
     box-shadow: 5px 5px 10px #b5b5b5b9,
         -5px -5px 10px #f0f0f08f;
-    
+
     overflow: hidden;
 }
 
@@ -93,14 +128,14 @@ export default {
 
 .mid-icon {
     position: absolute;
-    font-size: 80px;
+    font-size: 25vw;
     color: #5e5e5e;
     z-index: 10;
 }
 
 .mid-icon-inner {
     position: absolute;
-    font-size: 80px;
+    font-size: 25vw;
     color: #e8e8e8;
     left: 50%;
     top: 50%;
@@ -124,12 +159,12 @@ export default {
 }
 
 #bottom-card {
-    font-size: 12px;
+    font-size: 5vw;
     letter-spacing: 2px;
     font-weight: bold;
     text-align: center;
     text-transform: uppercase;
-    color:rgb(53, 53, 53) !important;
+    color: rgb(53, 53, 53) !important;
 
     position: relative;
     bottom: -25vh;
@@ -143,7 +178,7 @@ export default {
     background: linear-gradient(145deg, #eaeaea, #c5c5c5);
     box-shadow: 9px 9px 18px #afafaf,
         -9px -9px 18px #ffffff;
-    
+
     animation: slide-up 1s ease-out;
 }
 
@@ -151,9 +186,9 @@ export default {
     from {
         translate: 0px 50px;
     }
+
     to {
         translate: 0px 0px;
     }
 }
-
 </style>

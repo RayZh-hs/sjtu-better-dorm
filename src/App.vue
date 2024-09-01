@@ -47,7 +47,6 @@ export default {
 }
 
 .tabs-win {
-    /* background-color: aqua; */
     position: absolute;
     top: 48px;
     width: 100%;
