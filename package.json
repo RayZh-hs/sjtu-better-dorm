@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@zxing/library": "^0.21.3",
+    "pinia": "^2.2.2",
     "vite-plugin-vuetify": "^2.0.4",
     "vue": "^3.4.37",
     "vuetify": "^3.7.1"

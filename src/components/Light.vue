@@ -60,7 +60,7 @@ export default {
     top: 48px;
     width: 80%;
     left: 10%;
-    height: calc(100% - 48px);
+    height: calc(100% - 62px);
 
     border-radius: 17px;
     background: #dbdbdb;
@@ -168,7 +168,7 @@ export default {
 
 #pending-txt {
     position: absolute;
-    bottom: -7vh;
+    bottom: -5vh;
     width: 100vw;
     left: 50%;
     transform: translateX(-50%);

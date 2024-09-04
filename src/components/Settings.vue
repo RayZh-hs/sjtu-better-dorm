@@ -1,34 +1,39 @@
 <template>
     <div class="outbounding">
         <v-form id="form-container">
-            <v-textarea rows="2" variant="outlined" label="QR Code" id="qr-text-area" :disabled="locked" v-model="qrText"></v-textarea>
+            <v-textarea rows="2" variant="outlined" label="QR Code" id="qr-text-area" :disabled="locked"
+                v-model="store.temp_qrText"></v-textarea>
             <div class="cam-hyperlink">
-                <v-icon icon="mdi-camera" id="use-camera-btn"/>
+                <v-icon icon="mdi-camera" id="use-camera-btn" />
                 <p id="camera-hint">press to scan the qr code</p>
             </div>
-            <v-text-field density="compact" label="J-Username" variant="outlined"
-                prepend-icon="mdi-account" :disabled="locked" v-model="username"></v-text-field>
-            <v-text-field density="compact" label="J-Password" variant="outlined" prepend-icon="mdi-key"
-                type="password" :disabled="locked" v-model="password"></v-text-field>
+            <v-text-field density="compact" label="J-Username" variant="outlined" prepend-icon="mdi-account"
+                :disabled="locked" v-model="store.temp_username"></v-text-field>
+            <v-text-field density="compact" label="J-Password" variant="outlined" prepend-icon="mdi-key" type="password"
+                :disabled="locked" v-model="store.temp_password"></v-text-field>
             <div class="d-flex mt-5">
-                <v-btn variant="elevated" color="#e6e6e6" size="40" class="nm-btn sq-icon-btn"
-                    icon="mdi-note-edit" @click="edit"></v-btn>
-                <v-btn variant="elevated" color="#e6e6e6" size="40" class="nm-btn save-btn" @click="save" >Save</v-btn>
+                <v-btn variant="elevated" color="#e6e6e6" size="40" class="nm-btn sq-icon-btn" icon="mdi-note-edit"
+                    @click="edit(store)"></v-btn>
+                <v-btn variant="elevated" color="#e6e6e6" size="40" class="nm-btn save-btn" @click="save(store)">Save</v-btn>
             </div>
         </v-form>
     </div>
 </template>
 
+<script setup>
+import { useSettingsStore } from '../stores/settings';
+const store = useSettingsStore();
+console.log('Settings store', store);
+
+</script>
+
 <script>
 
 export default {
     name: 'Settings',
-    data()  {
+    data() {
         return {
             locked: false,
-            qrText: '',
-            username: '',
-            password: '',
         }
     },
     methods: {
@@ -37,16 +42,19 @@ export default {
             const qrText = await this.$qrcode.scan();
             qrTextArea.value = qrText;
         },
-        saveSettings() {},
-        save() {
-            this.saveSettings();
+        saveSettings(store) {
+            store.set();
+            store.saveToDisk();
+        },
+        save(store) {
+            this.saveSettings(store);
             this.locked = true;
         },
-        edit() {
-            this.password = '';
+        edit(store) {
+            store.removePassword();
             this.locked = false;
         }
-    }
+    },
 }
 </script>
 
@@ -75,6 +83,7 @@ export default {
 .cam-hyperlink {
     display: block;
     margin-left: clamp(0vw, 2vw, 4vw);
+    margin-top: 2vh;
     transform: translateY(-4vh);
 }
 
@@ -109,7 +118,7 @@ export default {
     background: #e6e6e6;
     box-shadow: 6px 6px 5px #bfbfbf,
         -4px -4px 5px #ffffff;
-    
+
     color: #404040 !important;
 }
 

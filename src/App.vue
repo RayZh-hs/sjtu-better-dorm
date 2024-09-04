@@ -2,13 +2,15 @@
 import Door from './components/Door.vue';
 import Light from './components/Light.vue';
 import Settings from './components/Settings.vue';
+import ScanCode from './components/ScanCode.vue';
 </script>
 
 <script>
 export default {
     data() {
         return {
-            tab: 'door'
+            tab: 'door',
+            showQR: false,
         }
     }
 }
@@ -16,6 +18,8 @@ export default {
 
 <template>
     <v-app class="rel app">
+        <scan-code v-if="showQR"></scan-code>
+
         <v-tabs v-model="tab" color="primary" grow>
             <v-tab value="door" :class="{ 'sel-sink': tab != 'door', 'sel-select': tab == 'door' }">
                 <v-icon icon="mdi-door"></v-icon>
@@ -52,6 +56,15 @@ export default {
     width: 100%;
     height: 100%;
     background-color: #dbdbdb !important;
+}
+
+scan-code {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
 }
 
 .tabs-win {
