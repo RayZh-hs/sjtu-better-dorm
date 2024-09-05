@@ -5,7 +5,7 @@
             <div id="line"></div>
             <v-icon icon="mdi-ceiling-light" class="light-ico" @click="pullLights"
                 :class="{ 'light-ico-pulled-down': pulledDown }"></v-icon>
-            <v-icon icon="mdi-ceiling-light" class="light-ico light-cone" v-show="anyLightOn()"></v-icon>
+            <!-- <v-icon icon="mdi-ceiling-light" class="light-ico light-cone" v-show="anyLightOn()"></v-icon> -->
 
             <div class="bottom-sect">
                 <div v-for="(state, ind) in lights" :key="ind">
@@ -60,7 +60,7 @@ export default {
     top: 48px;
     width: 80%;
     left: 10%;
-    height: calc(100% - 62px);
+    height: calc(80%);
 
     border-radius: 17px;
     background: #dbdbdb;
@@ -103,7 +103,6 @@ export default {
 
 .light-cone {
     color: rgb(255, 255, 255);
-    translate: 0 -44px;
     filter: blur(10px);
     opacity: 0.8;
     pointer-events: none;
@@ -168,7 +167,7 @@ export default {
 
 #pending-txt {
     position: absolute;
-    bottom: -5vh;
+    top: 94%;
     width: 100vw;
     left: 50%;
     transform: translateX(-50%);

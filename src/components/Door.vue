@@ -1,5 +1,5 @@
 <template>
-    <div class="multi-btn-area" @click="openDoor" id="multi-btn-area">
+    <div class="multi-btn-area" @click="openDoor(settings)" id="multi-btn-area">
         <div class="loading center">
             <div class="content-wrapper" :class="{ 'move-up': open }">
                 <v-icon icon="mdi-lock-open-outline" class="mid-icon center"></v-icon>
@@ -14,6 +14,11 @@
     <v-card id="bottom-card" color="#dbdbdb">click to open</v-card>
 </template>
 
+<script setup>
+import { useSettingsStore } from '../stores/settings';
+const settings = useSettingsStore();
+</script>
+
 <script>
 export default {
     name: 'Door',
@@ -23,21 +28,40 @@ export default {
         }
     },
     methods: {
-        openDoor() {
-            // location.assign("https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829")
-            window.open("https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829")
-
-            // const Http = new XMLHttpRequest();
-            // Http.open("GET", "https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829");
-            // Http.send();
-            // Http.onreadystatechange = (e) => {
-                // console.log(Http.responseText)
-            // }
-
-            this.open = true
+        openDoor(settings) {
+            console.log("Opening the door...");
+            if(settings.qrText == "") {
+                window.open("https://door.sjtu.edu.cn/ui?roomid=4a7108c4643145869b358c886b9fae0320220829", "_blank");
+            }
+            else {
+                console.log("loaded from settings: QR code url: " + settings.qrText);
+                try {
+                    window.open(settings.qrText, "_blank");
+                } catch (error) {
+                    console.error("Wrong url in settings.");
+                }
+            }
+            // fetch("https://door.sjtu.edu.cn/api/key?roomid=4a7108c4643145869b358c886b9fae03", {
+            //     method: "GET",
+            //     mode: "no-cors",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     redirect: "follow",
+            // }).then(response => {
+            //     console.log(response.body);
+            // }).catch(error => {
+            //     console.error("Failed to open the door.");
+            // });
+            this.open = true;
             setTimeout(() => {
-                this.open = false
+                console.log("Door opened.");
+                this.open = false;
             }, 5000);
+            setTimeout(() => {
+                console.log("Redirecting to the homepage...");
+                window.history.back();
+            }, 1000);
         }
     },
     // beforeMount() {

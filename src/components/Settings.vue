@@ -23,7 +23,7 @@
 <script setup>
 import { useSettingsStore } from '../stores/settings';
 const store = useSettingsStore();
-console.log('Settings store', store);
+store.loadFromDisk();
 
 </script>
 
@@ -33,7 +33,7 @@ export default {
     name: 'Settings',
     data() {
         return {
-            locked: false,
+            locked: true,
         }
     },
     methods: {
