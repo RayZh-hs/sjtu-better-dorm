@@ -55,5 +55,9 @@ export const useSettingsStore = defineStore('settings', {
         removePassword() {
             this.temp_password = "";
         },
+        replaceQrText(text) {
+            this.temp_qrText = text;
+            this.set();
+        }
     }
 })

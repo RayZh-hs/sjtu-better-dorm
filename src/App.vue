@@ -3,6 +3,9 @@ import Door from './components/Door.vue';
 import Light from './components/Light.vue';
 import Settings from './components/Settings.vue';
 import ScanCode from './components/ScanCode.vue';
+
+import { useSettingsStore } from './stores/settings';
+const store = useSettingsStore();
 </script>
 
 <script>
@@ -12,39 +15,51 @@ export default {
             tab: 'door',
             showQR: false,
         }
+    },
+    methods: {
+        saveQrCode(qr, store) {
+            console.log(qr);
+            store.replaceQrText(qr);
+        },
     }
 }
 </script>
 
 <template>
     <v-app class="rel app">
-        <scan-code v-if="showQR"></scan-code>
+        <v-overlay v-model="showQR" disabled persistent>
+            <div class="qr-scanner-box">
+                <scan-code @found="(arg) => saveQrCode(arg, store)" @close="showQR=false"/>
+            </div>
+        </v-overlay>
 
-        <v-tabs v-model="tab" color="primary" grow>
-            <v-tab value="door" :class="{ 'sel-sink': tab != 'door', 'sel-select': tab == 'door' }">
-                <v-icon icon="mdi-door"></v-icon>
-                <p class="icon-tip" v-if="tab == 'door'">door</p>
-            </v-tab>
-            <v-tab value="light" :class="{ 'sel-sink': tab != 'light', 'sel-select': tab == 'light' }">
-                <v-icon icon="mdi-ceiling-light"></v-icon>
-                <p class="icon-tip" v-if="tab == 'light'">light</p>
-            </v-tab>
-            <v-tab value="settings" :class="{ 'sel-sink': tab != 'settings', 'sel-select': tab == 'settings' }">
-                <v-icon icon="mdi-cog"></v-icon>
-                <p class="icon-tip" v-if="tab == 'settings'">settings</p>
-            </v-tab>
-        </v-tabs>
-        <v-tabs-window v-model="tab" class="tabs-win">
-            <v-tabs-window-item key="door" value="door">
-                <door />
-            </v-tabs-window-item>
-            <v-tabs-window-item key="light" value="light">
-                <light />
-            </v-tabs-window-item>
-            <v-tabs-window-item key="settings" value="settings">
-                <settings />
-            </v-tabs-window-item>
-        </v-tabs-window>
+        <div class="main-app">
+            <v-tabs v-model="tab" color="primary" grow>
+                <v-tab value="door" :class="{ 'sel-sink': tab != 'door', 'sel-select': tab == 'door' }">
+                    <v-icon icon="mdi-door"></v-icon>
+                    <p class="icon-tip" v-if="tab == 'door'">door</p>
+                </v-tab>
+                <v-tab value="light" :class="{ 'sel-sink': tab != 'light', 'sel-select': tab == 'light' }">
+                    <v-icon icon="mdi-ceiling-light"></v-icon>
+                    <p class="icon-tip" v-if="tab == 'light'">light</p>
+                </v-tab>
+                <v-tab value="settings" :class="{ 'sel-sink': tab != 'settings', 'sel-select': tab == 'settings' }">
+                    <v-icon icon="mdi-cog"></v-icon>
+                    <p class="icon-tip" v-if="tab == 'settings'">settings</p>
+                </v-tab>
+            </v-tabs>
+            <v-tabs-window v-model="tab" class="tabs-win">
+                <v-tabs-window-item key="door" value="door">
+                    <door />
+                </v-tabs-window-item>
+                <v-tabs-window-item key="light" value="light">
+                    <light />
+                </v-tabs-window-item>
+                <v-tabs-window-item key="settings" value="settings">
+                    <settings @scan="showQR=true" />
+                </v-tabs-window-item>
+            </v-tabs-window>
+        </div>
     </v-app>
 </template>
 
@@ -58,13 +73,13 @@ export default {
     background-color: #dbdbdb !important;
 }
 
-scan-code {
+.qr-scanner-box {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
+    top: 5vh;
+    left: 5vw;
+    width: 90vw;
+    height: 90vh;
+    /* outline: 2px solid red; */
 }
 
 .tabs-win {

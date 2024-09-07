@@ -3,7 +3,7 @@
         <v-form id="form-container">
             <v-textarea rows="2" variant="outlined" label="QR Code" id="qr-text-area" :disabled="locked"
                 v-model="store.temp_qrText"></v-textarea>
-            <div class="cam-hyperlink">
+            <div class="cam-hyperlink" @click="$emit('scan')">
                 <v-icon icon="mdi-camera" id="use-camera-btn" />
                 <p id="camera-hint">press to scan the qr code</p>
             </div>
@@ -28,7 +28,6 @@ store.loadFromDisk();
 </script>
 
 <script>
-
 export default {
     name: 'Settings',
     data() {
@@ -37,11 +36,6 @@ export default {
         }
     },
     methods: {
-        async scanQRCode() {
-            const qrTextArea = document.getElementById('qr-text-area');
-            const qrText = await this.$qrcode.scan();
-            qrTextArea.value = qrText;
-        },
         saveSettings(store) {
             store.set();
             store.saveToDisk();
@@ -55,6 +49,7 @@ export default {
             this.locked = false;
         }
     },
+    emits: ['scan'],
 }
 </script>
 
