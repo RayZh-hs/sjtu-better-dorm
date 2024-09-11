@@ -9,6 +9,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
 import { useSettingsStore } from '../stores/settings';
 const store = useSettingsStore();
 </script>
@@ -47,7 +48,10 @@ export default {
             this.$emit('found', qrCodeMessage);
             this.$emit('close');
         }
-        const config = { fps: 10, qrbox: {width:250, height:250} };
+        const screenWidth = window.screen.width;
+        console.log(screenWidth);
+        const qrboxWidth = screenWidth * 0.6;
+        const config = { fps: 10, qrbox: {width:qrboxWidth, height:qrboxWidth} };
         html5QrCode.start({ facingMode: 'environment' }, config, onScanSuccess);
     },
     emits: ['found', 'close'],

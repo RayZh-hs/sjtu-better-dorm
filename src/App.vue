@@ -75,10 +75,10 @@ export default {
 
 .qr-scanner-box {
     position: fixed;
-    top: 5vh;
+    top: 50vh;
     left: 5vw;
     width: 90vw;
-    height: 90vh;
+    transform: translateY(-50%);
     /* outline: 2px solid red; */
 }
 
